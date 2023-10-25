@@ -1,3 +1,4 @@
+import { fetchHtml } from '@/plugins/navigate/fetch'
 
 export function updateCurrentPageHtmlInHistoryStateForLaterBackButtonClicks() {
     // Create a history state entry for the initial page load.
@@ -16,6 +17,9 @@ export function whenTheBackOrForwardButtonIsClicked(callback) {
         if (! alpine._html) return
 
         let html = fromSessionStorage(alpine._html)
+
+        if (!html)
+            return fetchHtml(window.location, callback);
 
         callback(html)
     })
